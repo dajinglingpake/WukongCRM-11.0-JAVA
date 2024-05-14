@@ -76,35 +76,203 @@ services:
     networks:
       wkcrm_network:
     restart: always
-  nginx:
-    image: registry.cn-hangzhou.aliyuncs.com/72crm/nginx:latest
-    container_name: "nginx"
-    ports:
-      - "80:80"
-    volumes:
-      - ./log/nginx/:/var/log/nginx/
-      - ./conf/nginx/conf.d/:/etc/nginx/conf.d/
-      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
-    networks:
-      wkcrm_network:
+#   nginx:
+#     image: registry.cn-hangzhou.aliyuncs.com/72crm/nginx:latest
+#     container_name: "nginx"
+#     ports:
+#       - "80:80"
+#     volumes:
+#       - ./log/nginx/:/var/log/nginx/
+#       - ./conf/nginx/conf.d/:/etc/nginx/conf.d/
+#       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+#     networks:
+#       wkcrm_network:
+#     restart: always
+
+
+  gateway:
     restart: always
-  wkcrm:
-    image: registry.cn-hangzhou.aliyuncs.com/72crm/crm:11.3.3
-    container_name: "wkcrm"
-    environment:
-      - TZ=Asia/Shanghai
-      - LANG=en_US.UTF-8
+    image: wk-gateway-image
+    container_name: wk-gateway
     volumes:
-      - ./wkcrm.sh:/wkcrm.sh
-      - ./log/wkcrm:/opt/package/logs/
-      - ./data/wkcrm/file:/opt/upload/
+      - ./gateway/config:/opt/configno available service 'default' found, please make sure registry config correct
+      - ./gateway/public:/opt/public
+      - ./gateway/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
     ports:
       - "8443:8443"
-      - "8079:8079"
     networks:
       wkcrm_network:
-    entrypoint: /wkcrm.sh restart
+  admin:
     restart: always
+    image: wk-admin-image
+    container_name: wk-admin
+    volumes:
+      - ./admin/config:/opt/config
+      - ./admin/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    ports:
+      - "53330:53330"
+    networks:
+      wkcrm_network:
+  authorization:
+    restart: always
+    image: wk-authorization-image
+    container_name: wk-authorization
+    volumes:
+      - ./authorization/config:/opt/config
+      - ./authorization/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    ports:
+      - "53198:53198"
+    networks:
+      wkcrm_network:
+  bi:
+    restart: always
+    image: wk-bi-image
+    container_name: wk-bi
+    volumes:
+      - ./bi/config:/opt/config
+      - ./bi/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    ports:
+      - "5000:5000"
+    networks:
+      wkcrm_network:
+  crm:
+    restart: always
+    image: wk-crm-image
+    container_name: wk-crm
+    volumes:
+      - ./crm/config:/opt/config
+      - ./crm/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    ports:
+      - "53331:53331"
+    networks:
+      wkcrm_network:
+  examine:
+    restart: always
+    image: wk-examine-image
+    container_name: wk-examine
+    volumes:
+      - ./examine/config:/opt/config
+      - ./examine/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    ports:
+      - "5001:5001"
+      - "5101:5001"
+    networks:
+      wkcrm_network:
+  hrm:
+    restart: always
+    image: wk-hrm-image
+    container_name: wk-hrm
+    volumes:
+      - ./hrm/config:/opt/config
+      - ./hrm/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    ports:
+      - "5002:5002"
+    networks:
+      wkcrm_network:
+  job:
+    restart: always
+    image: wk-job-image
+    container_name: wk-job
+    volumes:
+      - ./job/config:/opt/config
+      - ./job/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    ports:
+      - "8999:8999"
+    networks:
+      wkcrm_network:
+  oa:
+    restart: always
+    image: wk-oa-image
+    container_name: wk-oa
+    volumes:
+      - ./oa/config:/opt/config
+      - ./oa/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    ports:
+      - "5003:5003"
+    networks:
+      wkcrm_network:
+  work:
+    restart: always
+    image: wk-work-image
+    container_name: wk-work
+    volumes:
+      - ./work/config:/opt/config
+      - ./work/lib:/opt/lib
+      - ./crm/mybatis-3.5.3-mapper.dtd:/opt/mybatis-3.5.3-mapper.dtd
+    environment:
+      - _JAVA_OPTIONS=-Xmx800m -Xms800m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    ports:
+      - "5004:5004"
+    networks:
+      wkcrm_network:
 
 networks:
   wkcrm_network:

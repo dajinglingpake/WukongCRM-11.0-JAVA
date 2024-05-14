@@ -673,7 +673,7 @@ public class HrmSalaryMonthRecordServiceImpl extends BaseServiceImpl<HrmSalaryMo
     }
 
     @Override
-    @GlobalTransactional(name = "submitExamine", rollbackFor = Exception.class)
+    //@GlobalTransactional(name = "submitExamine", rollbackFor = Exception.class)
     public void submitExamine(SubmitExamineBO submitExamineBO) {
         if (submitExamineBO.getCheckStatus() == 2 || submitExamineBO.getCheckStatus() == 5 || submitExamineBO.getCheckStatus() == 4 || submitExamineBO.getCheckStatus() == 11) {
             submitExamineBO.setCheckStatus(null);

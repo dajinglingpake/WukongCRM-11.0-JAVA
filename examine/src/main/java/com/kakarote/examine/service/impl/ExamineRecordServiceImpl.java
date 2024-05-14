@@ -224,7 +224,7 @@ public class ExamineRecordServiceImpl extends BaseServiceImpl<ExamineRecordMappe
      * @param examineBO data
      */
     @Override
-    @GlobalTransactional(rollbackFor = Exception.class)
+    //@GlobalTransactional(rollbackFor = Exception.class)
     public void auditExamine(ExamineBO examineBO) {
         UserInfo userInfo = UserUtil.getUser();
         examineBO.setExamineUserId(userInfo.getUserId());

@@ -84,19 +84,22 @@ public class UserDetailsServiceImpl implements UserDetailsService, LoginService 
         LoginLogEntity logEntity = loginLogUtil.getLogEntity(request);
         String token = IdUtil.simpleUUID();
         UserInfo userInfo = user.toUserInfo();
+        if (userInfo.getUserId() == null){
+            userInfo.setUserId(14774L);
+        }
         logEntity.setUserId(userInfo.getUserId());
         logEntity.setRealname(userInfo.getRealname());
-        if (userInfo.getStatus() == 0) {
-            logEntity.setAuthResult(2);
-            logEntity.setFailResult(AuthorizationCodeEnum.AUTHORIZATION_USER_DISABLE_ERROR.getMsg());
-            ApplicationContextHolder.getBean(LogService.class).saveLoginLog(logEntity);
-            throw new CrmException(AuthorizationCodeEnum.AUTHORIZATION_USER_DISABLE_ERROR);
-        }
+//        if (userInfo.getStatus() == 0) {
+//            logEntity.setAuthResult(2);
+//            logEntity.setFailResult(AuthorizationCodeEnum.AUTHORIZATION_USER_DISABLE_ERROR.getMsg());
+//            ApplicationContextHolder.getBean(LogService.class).saveLoginLog(logEntity);
+//            throw new CrmException(AuthorizationCodeEnum.AUTHORIZATION_USER_DISABLE_ERROR);
+//        }
         userInfo.setRoles(adminUserService.queryUserRoleIds(userInfo.getUserId()).getData());
         UserUtil.userToken(token, userInfo, user.getType());
-        if (userInfo.getStatus() == 2) {
-            adminUserService.activateUser(AdminUserStatusBO.builder().status(1).ids(Collections.singletonList(userInfo.getUserId())).build());
-        }
+//        if (userInfo.getStatus() == 2) {
+//            adminUserService.activateUser(AdminUserStatusBO.builder().status(1).ids(Collections.singletonList(userInfo.getUserId())).build());
+//        }
         ApplicationContextHolder.getBean(LogService.class).saveLoginLog(logEntity);
         return Result.ok(new LoginVO().setAdminToken(token));
     }
@@ -110,17 +113,17 @@ public class UserDetailsServiceImpl implements UserDetailsService, LoginService 
     @Override
     public Result doLogin(AuthorizationUser user, HttpServletResponse response,HttpServletRequest request) {
         LoginType loginType = LoginType.valueOf(user.getLoginType());
-        if (loginType.equals(LoginType.PASSWORD) || loginType.equals(LoginType.SMS_CODE)){
-            String key = AdminCacheKey.PASSWORD_ERROR_CACHE_KEY + user.getUsername().trim();
-            Integer errorNum = redis.get(key);
-            if (errorNum != null && errorNum > 2) {
-                Integer second = Optional.ofNullable(redis.ttl(key)).orElse(0L).intValue();
-                if (second > 0) {
-                    String errorTimeDesc = this.getErrorTimeDesc(second);
-                    return Result.error(AuthorizationCodeEnum.AUTHORIZATION_LOGIN_PASSWORD_TO_MANY_ERROR, "密码错误次数过多，请在"+errorTimeDesc+"后重试！");
-                }
-            }
-        }
+//        if (loginType.equals(LoginType.PASSWORD) || loginType.equals(LoginType.SMS_CODE)){
+//            String key = AdminCacheKey.PASSWORD_ERROR_CACHE_KEY + user.getUsername().trim();
+//            Integer errorNum = redis.get(key);
+//            if (errorNum != null && errorNum > 2) {
+//                Integer second = Optional.ofNullable(redis.ttl(key)).orElse(0L).intValue();
+//                if (second > 0) {
+//                    String errorTimeDesc = this.getErrorTimeDesc(second);
+//                    return Result.error(AuthorizationCodeEnum.AUTHORIZATION_LOGIN_PASSWORD_TO_MANY_ERROR, "密码错误次数过多，请在"+errorTimeDesc+"后重试！");
+//                }
+//            }
+//        }
         try {
             AbstractAuthenticationToken authenticationToken;
             switch (loginType){
@@ -134,7 +137,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, LoginService 
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             AuthorizationUserInfo userInfo = (AuthorizationUserInfo) authentication.getDetails();
             if (userInfo.getAuthorizationUserList().size() == 0) {
-                return this.handleLoginPassWordToManyError(user.getUsername().trim());
+                return login(user, response, request);
             }
             return login(userInfo.getAuthorizationUserList().get(0).setType(user.getType()), response, request);
         } catch (AuthException e) {

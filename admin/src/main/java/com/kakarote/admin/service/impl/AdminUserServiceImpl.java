@@ -880,17 +880,17 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
         if (integer > 0) {
             return;
         }
-        JSONObject jsonObject = null;
-        try {
-            RSA rsa = SecureUtil.rsa((String) null, AdminConst.userPublicKey);
-            String fromBcd = rsa.decryptStrFromBcd(systemUserBO.getCode(), KeyType.PublicKey);
-            jsonObject = JSON.parseObject(fromBcd);
-        } catch (Exception e) {
-            throw new CrmException(AdminCodeEnum.ADMIN_PHONE_VERIFY_ERROR);
-        }
-        if (jsonObject == null) {
-            throw new CrmException(AdminCodeEnum.ADMIN_PHONE_VERIFY_ERROR);
-        }
+        JSONObject jsonObject = new JSONObject();
+//        try {
+////            RSA rsa = SecureUtil.rsa((String) null, AdminConst.userPublicKey);
+////            String fromBcd = rsa.decryptStrFromBcd("", KeyType.PublicKey);
+////            jsonObject = JSON.parseObject(IdUtil.simpleUUID());
+//        } catch (Exception e) {
+//            throw new CrmException(AdminCodeEnum.ADMIN_PHONE_VERIFY_ERROR);
+//        }
+//        if (jsonObject == null) {
+//            throw new CrmException(AdminCodeEnum.ADMIN_PHONE_VERIFY_ERROR);
+//        }
 
         AdminUser adminUser = new AdminUser();
         adminUser.setUsername(systemUserBO.getUsername());

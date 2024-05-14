@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-slim-buster AS builder
+FROM docker.nju.edu.cn/library/openjdk:8-jdk-slim-buster AS builder
 
 
 RUN sed -i 's#http://deb.debian.org#https://mirrors.huaweicloud.com#g' /etc/apt/sources.list

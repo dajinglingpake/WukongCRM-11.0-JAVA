@@ -5229,6 +5229,10 @@ CREATE TABLE `wk_crm_business`  (
   INDEX `owner_user_id`(`owner_user_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商机表' ROW_FORMAT = Dynamic;
 
+ALTER TABLE `wk_crm_business`
+    MODIFY COLUMN `ro_user_id` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '只读权限' AFTER `batch_id`,
+    MODIFY COLUMN `rw_user_id` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '读写权限' AFTER `ro_user_id`;
+
 -- ----------------------------
 -- Records of wk_crm_business
 -- ----------------------------

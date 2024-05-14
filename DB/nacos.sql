@@ -118,24 +118,24 @@ CREATE TABLE `config_info_route`  (
 -- ----------------------------
 -- Records of config_info_route
 -- ----------------------------
-INSERT INTO `config_info_route` VALUES (101, 'authorization', 'lb://authorization', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/authorization*/**\"}}]', '[]', 100, '用户认证相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (102, 'admin', 'lb://admin', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/admin*/**\"}}]', '[]', 100, '系统管理相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (103, 'login', 'lb://authorization/login', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/login\"}}]', '[]', 100, '用户登录相关接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (104, 'logout', 'lb://authorization/logout', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/logout\"}}]', '[]', 100, '用户退出相关接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (105, 'reLogin', 'lb://authorization/reLogin', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/reLogin\"}}]', '[]', 100, '用户重新登录相关接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (106, 'crm', 'lb://crm', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/crm*/**\"}}]', '[]', 100, '客户管理相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (107, 'hrm', 'lb://hrm', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/hrm*/**\"}}]', '[]', 100, '人力资源相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (101, 'authorization', 'http://authorization:53198', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/authorization*/**\"}}]', '[]', 100, '用户认证相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (102, 'admin', 'http://admin:53330', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/admin*/**\"}}]', '[]', 100, '系统管理相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (103, 'login', 'http://authorization:53198/login', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/login\"}}]', '[]', 100, '用户登录相关接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (104, 'logout', 'http://authorization:53198/logout', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/logout\"}}]', '[]', 100, '用户退出相关接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (105, 'reLogin', 'http://authorization:53198/reLogin', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/reLogin\"}}]', '[]', 100, '用户重新登录相关接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (106, 'crm', 'http://crm:53331', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/crm*/**\"}}]', '[]', 100, '客户管理相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (107, 'hrm', 'http://hrm:5002', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/hrm*/**\"}}]', '[]', 100, '人力资源相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (108, 'jxc', 'lb://jxc', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/jxc*/**\"}}]', '[]', 100, '进销存相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (109, 'work', 'lb://work', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/work*/**\"}}]', '[]', 100, '项目管理相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (113, 'oa', 'lb://oa', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/oa*/**\"}}]', '[]', 100, 'OA相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (109, 'work', 'http://work:5004', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/work*/**\"}}]', '[]', 100, '项目管理相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (113, 'oa', 'http://oa:5003', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/oa*/**\"}}]', '[]', 100, 'OA相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (114, 'email', 'lb://email', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/email*/**\"}}]', '[]', 100, '邮箱相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (115, 'km', 'lb://km', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/km*/**\"}}]', '[]', 100, '知识库相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (116, 'bi', 'lb://bi', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/bi*/**\"}}]', '[]', 100, '商业智能相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (116, 'bi', 'http://bi:5000', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/bi*/**\"}}]', '[]', 100, '商业智能相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (117, 'file', 'http://127.0.0.1:8012/onlinePreview', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/onlinePreview\"}}]', '[]', 100, '文件预览相关接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (118, 'queryShareUrl', 'lb://km', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/documentShare/queryShareUrl/*\"}}]', '[]', 100, '知识库分享接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 INSERT INTO `config_info_route` VALUES (119, 'crmCallUpload', 'lb://crmCall/upload', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"crmCall/upload/*\"}}]', '[]', 100, '呼叫中心上传接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (123, 'permission', 'lb://authorization/permission', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/permission\"}}]', '[]', 100, '用户权限验证接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
-INSERT INTO `config_info_route` VALUES (124, 'examine', 'lb://examine', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/examine*/**\"}}]', '[]', 100, '审批相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (123, 'permission', 'http://authorization:53198/permission', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/permission\"}}]', '[]', 100, '用户权限验证接口', 0, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
+INSERT INTO `config_info_route` VALUES (124, 'examine', 'http://examine:5001', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/examine*/**\"}}]', '[]', 100, '审批相关接口', 1, 1, '2020-04-21 17:00:32', '2020-04-21 17:00:32');
 
 
 -- ----------------------------

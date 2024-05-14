@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:0}
+  port: 5002
 spring:
   profiles:
     include: core,dev

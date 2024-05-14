@@ -3,7 +3,9 @@ chmod 777 nacos.sh;
 chmod 777 mysql.sh;
 sed -i 's/\r$//' mysql.sh
 sed -i 's/\r$//' nacos.sh
-docker load < basejdkpython.tar
+#docker load < basejdkpython.tar
+#这个镜像要联网构建，如果不能联网要先构建好 basejdkpython.tar 放到此目录，再用上面那个命令加载即可
+docker build -t basejdkpython .
 cd admin
 tar -xzvf admin.tar.gz
 sed -i 's/{REDIS_HOST:127.0.0.1}/{REDIS_HOST:redis}/g' ./config/application-dev.yml

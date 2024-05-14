@@ -1,3 +1,6 @@
+docker network create --driver=bridge wkcrm_network
+chmod 777 nacos.sh;
+chmod 777 mysql.sh;
 sed -i 's/\r$//' mysql.sh
 sed -i 's/\r$//' nacos.sh
 docker load < basejdkpython.tar
